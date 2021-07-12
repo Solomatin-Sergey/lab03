@@ -73,5 +73,57 @@ cmake ~/lab03_dz/tasks/lab03-master/formatter_ex_lib
 
     hello_world, которое использует библиотеку formatter_ex;
     solver, приложение которое испольует статические библиотеки formatter_ex и solver_lib.
-    
-    
+  
+#### Program I.
+ >> Перемещаем папку formatter_ex_lib в папку hello_world_application.
+ >> Создаём CMakeLists.txt
+ 
+cmake_minimum_required(VERSION 2.8)
+
+project(hello_world)
+
+include_directories(formatter_ex_lib)
+
+add_subdirectory(formatter_ex_lib)
+
+add_executable(hello_world hello_world.cpp)
+
+target_link_libraries(hello_world formatter_ex)
+
+>> Запускаем cmake . , получаем файл hello_world, после запуска которого выводится:
+
+world 
+-------------------------
+hello, world!
+-------------------------
+
+#### Program II.
+
+>> в данном случае нужно написать 2 CMakeLists.txt для библиотеки solver_lib и для самого приложения:
+
+*
+cmake_minimum_required(VERSION 2.8) 
+add_library(solver_lib STATIC solver.h solver.cpp)
+
+*
+cmake_minimum_required(VERSION 2.8)
+project(solver)
+add_executable(solver equation.cpp)
+include_directories(formatter_ex_lib)
+add_subdirectory(formatter_ex_lib)
+include_directories(solver_lib)
+add_subdirectory(solver_lib)
+target_link_libraries(solver formatter_ex)
+target_link_libraries(solver solver_lib)
+
+
+>> После сборки и запуска получаем:
+1
+4
+4
+-------------------------
+x1 = -2.000000
+-------------------------
+-------------------------
+x2 = -2.000000
+-------------------------
