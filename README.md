@@ -40,10 +40,15 @@ cmake ~/lab03_dz/tasks/lab03-master/formatter_lib
 >> Cоздаем и подключаем CMakeLists.txt по аналогии с предыдущим заданием.
 
 cmake_minimum_required(VERSION 2.8)
+
 project(formatter_ex)
+
 include_directories(formatter_lib) #Подключаем директорию с заголовочными файлами
+
 add_subdirectory(formatter_lib) #Подключаем директорию с библиотекой
+
 add_library(formatter_ex STATIC formatter_ex.h formatter_ex.cpp)
+
 target_link_libraries(formatter_ex formatter) #Подключаем библиотеку
 
 >> Подключаем их друг к другу:
@@ -102,18 +107,27 @@ hello, world!
 >> в данном случае нужно написать 2 CMakeLists.txt для библиотеки solver_lib и для самого приложения:
 
 *
-cmake_minimum_required(VERSION 2.8) 
+cmake_minimum_required(VERSION 2.8)
+
 add_library(solver_lib STATIC solver.h solver.cpp)
 
 *
 cmake_minimum_required(VERSION 2.8)
+
 project(solver)
+
 add_executable(solver equation.cpp)
+
 include_directories(formatter_ex_lib)
+
 add_subdirectory(formatter_ex_lib)
+
 include_directories(solver_lib)
+
 add_subdirectory(solver_lib)
+
 target_link_libraries(solver formatter_ex)
+
 target_link_libraries(solver solver_lib)
 
 
